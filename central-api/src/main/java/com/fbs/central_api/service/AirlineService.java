@@ -25,7 +25,7 @@ public class AirlineService {
     This method function is to call DB API and to save airline details in airline table and airline_admin details in user table
      */
 
-    public void registerAirline(airlinesRegistrationDTO airlinesRegistrationDTO){
+    public Airline registerAirline(airlinesRegistrationDTO airlinesRegistrationDTO){
         log.info("airlineService registration method called");
         // before calling the DB API, Lets map the details getting from dto into models
         // Ideally mapping logic should be kept in different class
@@ -49,6 +49,10 @@ public class AirlineService {
         // We need to mail to app admin that airline is trying to register into your application
         //To make this
         //We need to creating another microservice whose work is to send notification via mail
+        // Now we need to mail application admin regarding airline registration request
+        // So, To mail we require application admin object
+
+
 
     }
 }

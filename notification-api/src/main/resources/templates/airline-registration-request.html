@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Airline Registration Request</title>
+  <style>
+    body {
+        font-family: 'Helvetica Neue', sans-serif;
+        background-color: #f6f8fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        background-color: #fff;
+        max-width: 600px;
+        margin: 40px auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        overflow: hidden;
+    }
+
+    .header {
+        background-color: #000;
+        color: #fff;
+        padding: 24px;
+        text-align: center;
+    }
+
+    .content {
+        padding: 24px;
+        color: #333;
+    }
+
+    .info-block {
+        margin: 16px 0;
+        line-height: 1.5;
+    }
+
+    .info-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .button-group {
+        text-align: center;
+        margin: 32px 0;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        margin: 0 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .btn-accept {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .btn-reject {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .footer {
+        background-color: #f0f0f0;
+        padding: 16px;
+        font-size: 12px;
+        color: #888;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        .btn {
+            display: block;
+            margin: 12px auto;
+            width: 80%;
+        }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h2>Airline Registration Request</h2>
+    <p>A new airline is requesting approval</p>
+  </div>
+  <div class="content">
+    <div class="info-block">
+      <div class="info-title">Airline Details:</div>
+      <p><strong>Name:</strong> [[${{airlineName}}]]</p>
+      <p><strong>Official Name:</strong> [[${{officialName}}]]</p>
+      <p><strong>Website:</strong> <a href="[[${{website}}]]" style="color:#007bff;">[[${{website}}]]</a></p>
+      <p><strong>Phone:</strong> [[${{phoneNumber}}]]</p>
+      <p><strong>Employees:</strong> [[${{employees}}]]</p>
+      <p><strong>Total Flights:</strong> [[${{totalFlights}}]]</p>
+      <p><strong>Request Created At:</strong> [[${{createdAt}}]]</p>
+    </div>
+
+    <div class="info-block">
+      <div class="info-title">Requested by (Airline Admin):</div>
+      <p><strong>Name:</strong> [[${{AirlineAdminName}}]]</p>
+      <p><strong>Email:</strong> [[${{AirlineAdminEmail}}]]</p>
+      <p><strong>Phone:</strong> [[${{AirlineAdminPhone}}]]</p>
+    </div>
+
+    <div class="button-group">
+      <a href="[[${{acceptLink}}]]" class="btn btn-accept">Accept</a>
+      <a href="[[${{rejectLink}}]]" class="btn btn-reject">Reject</a>
+    </div>
+  </div>
+  <div class="footer">
+    © 2025 FBS System. All rights reserved.
+  </div>
+</div>
+</body>
+</html>
