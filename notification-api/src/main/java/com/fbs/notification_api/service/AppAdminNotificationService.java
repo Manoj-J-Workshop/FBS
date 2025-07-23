@@ -38,7 +38,15 @@ public class AppAdminNotificationService {
         context.setVariable("phoneNumber", airlineRegistrationReqDto.getAirline().getPhoneNumber());
         context.setVariable("employees", airlineRegistrationReqDto.getAirline().getEmployees());
         context.setVariable("totalFlights", airlineRegistrationReqDto.getAirline().getTotalFlights());
-        context.setVariable("createdAt", airlineRegistrationReqDto.getAirline().getCreatedAt().toString());
+
+        if (airlineRegistrationReqDto.getAirline().getCreatedAt() != null) {
+            context.setVariable("createdAt", airlineRegistrationReqDto.getAirline().getCreatedAt().toString());
+        } else {
+            context.setVariable("createdAt", "N/A");
+            log.warn("Airline createdAt is null");
+        }
+
+        //context.setVariable("createdAt", airlineRegistrationReqDto.getAirline().getCreatedAt().toString());
         context.setVariable("AirlineAdminName", airlineRegistrationReqDto.getAirline().getAdmin().getName());
         context.setVariable("AirlineAdminEmail", airlineRegistrationReqDto.getAirline().getAdmin().getEmail());
         context.setVariable("AirlineAdminPhone", airlineRegistrationReqDto.getAirline().getAdmin().getPhoneNumber());

@@ -9,16 +9,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class AirlineService {
 
     Mapper mapper;
     DBApiConnector dbApiConnector;
+    UserService userService;
+    MailService mailService;
     @Autowired
-    public AirlineService(Mapper mapper, DBApiConnector dbApiConnector){
+    public AirlineService(Mapper mapper, DBApiConnector dbApiConnector, UserService userService, MailService mailService){
         this.mapper = mapper;
         this.dbApiConnector = dbApiConnector;
+        this.userService = userService;
+        this.mailService = mailService;
     }
 
     /*
@@ -51,8 +57,11 @@ public class AirlineService {
         //We need to creating another microservice whose work is to send notification via mail
         // Now we need to mail application admin regarding airline registration request
         // So, To mail we require application admin object
+        List<AppUser> SystemAdminList = userService.getAllSystemAdmins();
+        //Mail all system admin
+        mailService.mailSystemAdminForAirlineRegistration(SystemAdminList, airline);
 
-
+        return airline;
 
     }
 }

@@ -2,6 +2,7 @@ package com.fbs.db_api.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -36,6 +37,9 @@ public class AppUser {
     String userType;
 
     String status;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
 }

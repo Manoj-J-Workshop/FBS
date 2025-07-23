@@ -24,6 +24,7 @@ public class AppConfiguration {
     /*
     JavaMailSender - helps springboot code to send mails to mail IDs.
      */
+    @Bean
     public JavaMailSender generateJavaMailSender(){
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         //Our backend API needs to send mails for the user
