@@ -7,10 +7,9 @@ import com.fbs.db_api.repositories.AppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/db/airline")
@@ -28,4 +27,20 @@ public class AirlineController {
         Airline airlineResponse = airlineRepo.save(airline);
         return new ResponseEntity(airlineResponse, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{airlineId}")
+    public ResponseEntity getAirlineById(@PathVariable UUID airlineId){
+        Airline airline = airlineRepo.findById(airlineId).orElse(null);
+        return new ResponseEntity<>(airline,HttpStatus.OK);
+    }
+
+    /*
+    Endpoint to update the airline table based on airline object
+     */
+    @PutMapping("/update")
+    public ResponseEntity updateAirline(@RequestBody Airline airline){
+        airlineRepo.save(airline);
+        return new ResponseEntity<>(airline,HttpStatus.OK);
+    }
+
 }

@@ -34,6 +34,7 @@ public class AppConfiguration {
         javaMailSender.setUsername("accioshoppingwebsite@gmail.com");// We will be sending email so, by what email our spring application will send mail to the users
         javaMailSender.setPassword("relcfdwhahhcvokv");// password of the email...... It is app password, not actual password
 
+        //manoj.j.96635@gmail.com - Manoj9663
         Properties props = javaMailSender.getJavaMailProperties();
         props.put("mail.smtp.auth","true"); // springboot api connect with gmail to send email via password so, mail.smtp.auth is true
         props.put("mail.smtp.starttls.enable","true");// this property we are setting for secure connection

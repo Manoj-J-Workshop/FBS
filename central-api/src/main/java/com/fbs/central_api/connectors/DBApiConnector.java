@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 /*
 The Purpose of this call is to connect with the DB API endpoints
@@ -54,7 +56,7 @@ public class DBApiConnector {
         log.info("Inside callCreateAirlineEndpoint method with airline object: "+ airline.toString());
         String url = dbApiBaseUrl + "/airline/create";
         RequestEntity request = RequestEntity.post(url).body(airline);
-        log.info("Created request; "+request.toString());
+        log.info("Created request: "+request.toString());
         //RestTemplate restTemplate = new RestTemplate();
         log.info("Calling dbApi create airline endpoint");
         ResponseEntity<Airline> response = restTemplate.exchange(url, HttpMethod.POST,request,Airline.class);
@@ -67,8 +69,33 @@ public class DBApiConnector {
      */
     public List<AppUser> callGetAllUsersByUserType(String userType){
         String url = dbApiBaseUrl+"/user/get/"+userType;
-        RequestEntity request = RequestEntity.get(url).build();
+        RequestEntity<Void> request = RequestEntity.get(URI.create(url)).build();
         ResponseEntity<AllUsersDto> response = restTemplate.exchange(url, HttpMethod.GET,request, AllUsersDto.class);
         return response.getBody().getAppUsers();
+    }
+
+    public Airline callGetAirlineByIDEndpoint(UUID airlineId){
+        String url = dbApiBaseUrl+"/airline/"+ airlineId.toString();
+        RequestEntity request = RequestEntity.get(url).build();
+        ResponseEntity<Airline> response =restTemplate.exchange(url,HttpMethod.GET, request,Airline.class);
+        return response.getBody();
+    }
+
+    public Airline callupdateAirlineEndpoint(Airline airline){
+        log.info("Inside callupdateAirlineEndpoint method with airline object: "+airline.toString());
+        String url = dbApiBaseUrl+"/airline/update";
+        RequestEntity request = RequestEntity.put(url).body(airline);
+        log.info("Updated request:"+request.toString());
+        ResponseEntity<Airline> response = restTemplate.exchange(url,HttpMethod.PUT,request,Airline.class);
+        return response.getBody();
+    }
+
+    public AppUser callupdateUserEndpoint(AppUser appUser){
+        log.info("Inside callupdateUserEndpoint method with AppUser object: "+appUser.toString());
+        String url = dbApiBaseUrl+"/user/update";
+        RequestEntity request = RequestEntity.put(url).body(appUser);
+        log.info("Updated request:"+request.toString());
+        ResponseEntity<AppUser> response = restTemplate.exchange(url,HttpMethod.PUT,request,AppUser.class);
+        return  response.getBody();
     }
 }

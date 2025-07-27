@@ -29,4 +29,8 @@ public class UserService {
         return dbApiConnector.callGetAllUsersByUserType(UserType.SYSTEM_ADMIN.toString());
     }
 
+    public AppUser updateUserDetails(AppUser appUser){
+        // need to call db api connector for updating the details of AirlineAdmin
+        return dbApiConnector.callupdateUserEndpoint(appUser);
+    }
 }

@@ -109,10 +109,24 @@
       <p><strong>Phone:</strong> [[${{AirlineAdminPhone}}]]</p>
     </div>
 
-    <div class="button-group">
-      <a href="[[${{acceptLink}}]]" class="btn btn-accept">Accept</a>
-      <a href="[[${{rejectLink}}]]" class="btn btn-reject">Reject</a>
+    <div style="text-align: center; margin: 32px 0;">
+      <a th:href="${acceptLink}"
+         style="display: inline-block; background-color: #28a745; color: #fff;
+        padding: 12px 24px; border-radius: 6px; text-decoration: none;
+        font-weight: bold; font-size: 14px; margin: 0 12px;">
+        Accept
+      </a>
+
+      <a th:href="${rejectLink}"
+         style="display: inline-block; background-color: #dc3545; color: #fff;
+        padding: 12px 24px; border-radius: 6px; text-decoration: none;
+        font-weight: bold; font-size: 14px; margin: 0 12px;">
+        Reject
+      </a>
     </div>
+
+
+
   </div>
   <div class="footer">
     © 2025 FBS System. All rights reserved.

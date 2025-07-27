@@ -2,6 +2,8 @@ package com.fbs.central_api.service;
 
 import com.fbs.central_api.connectors.DBApiConnector;
 import com.fbs.central_api.dto.airlinesRegistrationDTO;
+import com.fbs.central_api.enums.AirlineStatus;
+import com.fbs.central_api.enums.UserStatus;
 import com.fbs.central_api.model.Airline;
 import com.fbs.central_api.model.AppUser;
 import com.fbs.central_api.utility.Mapper;
@@ -9,7 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -27,6 +31,16 @@ public class AirlineService {
         this.mailService = mailService;
     }
 
+    public Airline getAirlineById(UUID airlineId){
+        // Need to connect DB API
+        // Need DB-api connector
+        return dbApiConnector.callGetAirlineByIDEndpoint(airlineId);
+    }
+
+    public Airline updateAirlineDetails(Airline airline){
+        // we should call db-api to update the airline object in Airline table
+        return dbApiConnector.callupdateAirlineEndpoint(airline);
+    }
     /*
     This method function is to call DB API and to save airline details in airline table and airline_admin details in user table
      */
@@ -62,6 +76,52 @@ public class AirlineService {
         mailService.mailSystemAdminForAirlineRegistration(SystemAdminList, airline);
 
         return airline;
+
+    }
+
+    /*
+    This method is used to update the Airline status
+     */
+    public Airline acceptAirlineRequest(UUID airlineID){
+        log.info("airlineID :"+ airlineID.toString());
+
+
+        //1. get airline object by airlineID
+        Airline airline = this.getAirlineById(airlineID);
+
+
+        //2. update status of the airline and airlineAdmin
+        airline.setStatus(AirlineStatus.ACTIVE.toString());
+        airline.setUpdatedAt(LocalDateTime.now());
+
+        //airlineAdmin
+        AppUser airlineAdmin = airline.getAdmin();
+        airlineAdmin.setStatus(UserStatus.ACTIVE.toString());
+        airlineAdmin.setUpdatedAt(LocalDateTime.now());
+
+
+        //3. Save those changes in the respective database.
+             // Need to update Airline table - airline object
+        airline = updateAirlineDetails(airline);
+             // Need to update User table - airlineAdmin object
+        airlineAdmin = userService.updateUserDetails(airlineAdmin);
+
+
+        //4. Mail Airline Admin - Congratulations your request got approved.
+        mailService.notifyAcceptRequestToAirlineAdmin(airline);
+
+        return airline;
+
+    }
+
+    public Airline rejectAirlineRequest(UUID airlineID){
+        log.info("Reject AirlineService airlineId: "+airlineID.toString());
+
+        Airline airline = this.getAirlineById(airlineID);
+        airline.setStatus(UserStatus.REJECTED.toString());
+        airline = this.updateAirlineDetails(airline);
+
+        //We need to generate rejection reasons
 
     }
 }

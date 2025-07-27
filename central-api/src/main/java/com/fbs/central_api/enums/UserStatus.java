@@ -5,5 +5,6 @@ public enum UserStatus {
     INACTIVE,
     INVALID_DATA,
     SUSPENDED,
-    DELETED
+    DELETED,
+    REJECTED
 }

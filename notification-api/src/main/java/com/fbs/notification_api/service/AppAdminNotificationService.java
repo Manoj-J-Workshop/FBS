@@ -39,17 +39,20 @@ public class AppAdminNotificationService {
         context.setVariable("employees", airlineRegistrationReqDto.getAirline().getEmployees());
         context.setVariable("totalFlights", airlineRegistrationReqDto.getAirline().getTotalFlights());
 
-        if (airlineRegistrationReqDto.getAirline().getCreatedAt() != null) {
-            context.setVariable("createdAt", airlineRegistrationReqDto.getAirline().getCreatedAt().toString());
-        } else {
-            context.setVariable("createdAt", "N/A");
-            log.warn("Airline createdAt is null");
-        }
+//        if (airlineRegistrationReqDto.getAirline().getCreatedAt() != null) {
+//            context.setVariable("createdAt", airlineRegistrationReqDto.getAirline().getCreatedAt().toString());
+//        } else {
+//            context.setVariable("createdAt", "N/A");
+//            log.warn("Airline createdAt is null");
+//        }
 
-        //context.setVariable("createdAt", airlineRegistrationReqDto.getAirline().getCreatedAt().toString());
+        context.setVariable("createdAt", airlineRegistrationReqDto.getAirline().getCreatedAt().toString());
         context.setVariable("AirlineAdminName", airlineRegistrationReqDto.getAirline().getAdmin().getName());
         context.setVariable("AirlineAdminEmail", airlineRegistrationReqDto.getAirline().getAdmin().getEmail());
         context.setVariable("AirlineAdminPhone", airlineRegistrationReqDto.getAirline().getAdmin().getPhoneNumber());
+        context.setVariable("acceptLink", "http://localhost:8081/api/v1/central/airline/request/accept/" + airlineRegistrationReqDto.getAirline().getId().toString());
+
+        //context.setVariable("acceptLink", "http://localhost:8081/api/v1/airline/request/accept/" + airlineRegistrationReqDto.getAirline().getId().toString());
 
         // we need to load the html template inside this function and populate the values of all the variables
         // To do it - we will use library called Thymeleaf.
