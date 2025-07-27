@@ -1,11 +1,13 @@
 package com.fbs.central_api.service;
 
 import com.fbs.central_api.connectors.DBApiConnector;
+import com.fbs.central_api.connectors.GeminiConnector;
 import com.fbs.central_api.dto.airlinesRegistrationDTO;
 import com.fbs.central_api.enums.AirlineStatus;
 import com.fbs.central_api.enums.UserStatus;
 import com.fbs.central_api.model.Airline;
 import com.fbs.central_api.model.AppUser;
+import com.fbs.central_api.model.GeminiResponse;
 import com.fbs.central_api.utility.Mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,14 @@ public class AirlineService {
     DBApiConnector dbApiConnector;
     UserService userService;
     MailService mailService;
+    GeminiConnector geminiConnector;
     @Autowired
-    public AirlineService(Mapper mapper, DBApiConnector dbApiConnector, UserService userService, MailService mailService){
+    public AirlineService(Mapper mapper, DBApiConnector dbApiConnector, UserService userService, MailService mailService, GeminiConnector geminiConnector){
         this.mapper = mapper;
         this.dbApiConnector = dbApiConnector;
         this.userService = userService;
         this.mailService = mailService;
+        this.geminiConnector = geminiConnector;
     }
 
     public Airline getAirlineById(UUID airlineId){
@@ -122,6 +126,11 @@ public class AirlineService {
         airline = this.updateAirlineDetails(airline);
 
         //We need to generate rejection reasons
+        String prompt = "Generate Failure Reason for the airline details: " + airline.toString();
+        GeminiResponse geminiResponse = geminiConnector.callGeminiGenAIEndpoint(prompt);
+        String result = geminiResponse.getCandidates().get(0).getContent().getParts().get(0).getText();
+
+        //We need to mail this result to airline admin, as there request got canceled because of these reasons
 
     }
 }

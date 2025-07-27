@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Airline Registration Rejected</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f9fc;
+        color: #333;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        background-color: #ffffff;
+        margin: 0 auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+    }
+
+    .header {
+        background-color: #f44336;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+        font-size: 24px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .reason-box {
+        background-color: #ffe6e6;
+        border-left: 4px solid #f44336;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 5px;
+    }
+
+    .footer {
+        margin-top: 30px;
+        font-size: 13px;
+        color: #999;
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    Airline Registration Rejected
+  </div>
+  <div class="content">
+    <p>Dear <strong th:text="${airlineAdminName}">Airline Admin</strong>,</p>
+    <p>We regret to inform you that your request to register the airline <strong th:text="${airlineName}">Airline Name</strong> has been declined after thorough evaluation.</p>
+
+    <div class="reason-box">
+      <p><strong>Reason for Rejection:</strong></p>
+      <p th:text="${aiGeneratedReason}">AI-generated explanation goes here based on the airline data submitted.</p>
+    </div>
+
+    <p>If you believe this was an error or you would like to revise your submission, feel free to reapply with the corrected information.</p>
+
+    <p>Thank you for your interest in partnering with us.</p>
+    <p>– Central Admin Team</p>
+  </div>
+  <div class="footer">
+    &copy; 2025 Central Airline Portal. All rights reserved.
+  </div>
+</div>
+</body>
+</html>
