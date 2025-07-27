@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Airline Activated</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+<div style="background-color: white; padding: 20px; border-radius: 8px;">
+  <h2 style="color: #2c3e50;">Congratulations!</h2>
+  <p>Dear <strong th:text="${adminName}"> Admin</strong>,</p>
+  <p>Your airline registration request has been <strong>approved</strong>.</p>
+
+  <p>
+    <strong>Airline Name:</strong> <span th:text="${airlineName}"></span><br/>
+    <strong>Status:</strong> <span th:text="${status}"></span><br/>
+    <strong>Activated On:</strong> <span th:text="${createdAt}"></span>
+  </p>
+
+  <p>
+    You can now log in and manage your airline operations on our platform.
+  </p>
+
+  <p style="margin-top: 20px;">Thank you,<br/>Team FBS</p>
+</div>
+</body>
+</html>
