@@ -1,5 +1,6 @@
 package com.fbs.notification_api.service;
 
+import com.fbs.notification_api.dto.AirlineRejectDto;
 import com.fbs.notification_api.model.Airline;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,27 @@ public class AirlineNotificationService {
         }
 
 
+    }
+
+    public void airlineRejectNotification(AirlineRejectDto airlineRejectDto){
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+
+        try{
+            mimeMessageHelper.setTo(airlineRejectDto.getGetAirlineAdminEmail());
+            mimeMessageHelper.setSubject("Airline Registration Request Rejected");
+            Context context = new Context();
+            context.setVariable("airlineAdminName",airlineRejectDto.getAirlineAdminName());
+            context.setVariable("airlineName", airlineRejectDto.getOfficialName());
+            context.setVariable("aiGeneratedReason", airlineRejectDto.getRejectReason());
+
+
+            String HtmlContent = templateEngine.process("reject-airline-registration-request", context);
+            mimeMessageHelper.setText(HtmlContent,true);
+            javaMailSender.send(mimeMessage);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 }

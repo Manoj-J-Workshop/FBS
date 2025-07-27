@@ -38,5 +38,7 @@ public class NotificationApiConnector {
 
     public void notifyRejectRequestToAirlineAdmin(AirlineRejectDto airlineRejectDto){
         String url = notificationBaseUrl + "/airline/admin/reject-request";
+        RequestEntity<Object> request = RequestEntity.put(url).body(airlineRejectDto);
+        restTemplate.exchange(url,HttpMethod.PUT,request, Object.class);
     }
 }

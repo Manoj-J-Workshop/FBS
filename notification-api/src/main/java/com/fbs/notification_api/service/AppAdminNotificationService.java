@@ -51,6 +51,9 @@ public class AppAdminNotificationService {
         context.setVariable("AirlineAdminEmail", airlineRegistrationReqDto.getAirline().getAdmin().getEmail());
         context.setVariable("AirlineAdminPhone", airlineRegistrationReqDto.getAirline().getAdmin().getPhoneNumber());
         context.setVariable("acceptLink", "http://localhost:8081/api/v1/central/airline/request/accept/" + airlineRegistrationReqDto.getAirline().getId().toString());
+        //context.setVariable("rejectLink", "http://localhost:8081/api/v1/central/airline/request/request/" + airlineRegistrationReqDto.getAirline().getId().toString());
+        context.setVariable("rejectLink", "http://localhost:8081/api/v1/central/airline/request/reject/" + airlineRegistrationReqDto.getAirline().getId().toString());
+
 
         //context.setVariable("acceptLink", "http://localhost:8081/api/v1/airline/request/accept/" + airlineRegistrationReqDto.getAirline().getId().toString());
 

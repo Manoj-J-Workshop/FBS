@@ -55,6 +55,7 @@ public class AirlineController {
     @GetMapping("/request/reject/{airlineId}")
     public ResponseEntity<String> rejectAirlineRequest(@PathVariable UUID airlineId){
         log.info("Reject Airline airlineId: "+airlineId.toString());
-        airlineService.;
+        airlineService.rejectAirlineRequest(airlineId);
+        return ResponseEntity.ok("❌ Airline registration request has been rejected.");
     }
 }

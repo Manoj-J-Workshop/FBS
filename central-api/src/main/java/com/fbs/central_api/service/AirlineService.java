@@ -118,7 +118,7 @@ public class AirlineService {
 
     }
 
-    public Airline rejectAirlineRequest(UUID airlineID){
+    public void rejectAirlineRequest(UUID airlineID){
         log.info("Reject AirlineService airlineId: "+airlineID.toString());
 
         Airline airline = this.getAirlineById(airlineID);
@@ -131,6 +131,7 @@ public class AirlineService {
         String result = geminiResponse.getCandidates().get(0).getContent().getParts().get(0).getText();
 
         //We need to mail this result to airline admin, as there request got canceled because of these reasons
-
+        mailService.notifyRejectRequestToAirlineAdmin(airline.getAirlineName(),airline.getOfficialName(),airline.getAdmin().getEmail(),result);
+        //(String name, String officialName, String AirlineAdminEmail,String rejectReason)
     }
 }

@@ -2,6 +2,7 @@ package com.fbs.central_api.service;
 
 import com.fbs.central_api.connectors.NotificationApiConnector;
 import com.fbs.central_api.dto.AirlineRegistrationReqDto;
+import com.fbs.central_api.dto.AirlineRejectDto;
 import com.fbs.central_api.model.Airline;
 import com.fbs.central_api.model.AppUser;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,20 @@ public class MailService {
     public void notifyAcceptRequestToAirlineAdmin(Airline airline){
         try{
             notificationApiConnector.notifyAcceptRequestToAirlineAdmin(airline);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    public void notifyRejectRequestToAirlineAdmin(String name, String officialName, String AirlineAdminEmail,String rejectReason){
+        AirlineRejectDto airlineRejectDto = new AirlineRejectDto();
+        airlineRejectDto.setAirlineAdminName(name);
+        airlineRejectDto.setOfficialName(officialName);
+        airlineRejectDto.setRejectReason(rejectReason);
+        airlineRejectDto.setGetAirlineAdminEmail(AirlineAdminEmail);
+
+        try{
+            notificationApiConnector.notifyRejectRequestToAirlineAdmin(airlineRejectDto);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

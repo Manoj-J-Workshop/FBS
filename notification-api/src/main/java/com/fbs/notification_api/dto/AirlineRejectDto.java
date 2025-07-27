@@ -1,4 +1,4 @@
-package com.fbs.central_api.dto;
+package com.fbs.notification_api.dto;
 
 import lombok.*;
 
