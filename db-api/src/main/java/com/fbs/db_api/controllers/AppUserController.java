@@ -39,4 +39,10 @@ public class AppUserController {
         AppUser appUser1 = appUserRepo.save(appUser);
         return new ResponseEntity<>(appUser1, HttpStatus.OK);
     }
+
+    @GetMapping("/get/{Email}")
+    public ResponseEntity<AppUser> getuserByEmail(@PathVariable String Email){
+        AppUser appUser = appUserRepo.findByEmail(Email);
+        return new ResponseEntity<>(appUser,HttpStatus.OK);
+    }
 }

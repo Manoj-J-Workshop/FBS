@@ -29,4 +29,19 @@ public class AuthUtility {
                 .compact();
         return jwtToken;
     }
+
+    /**
+     * This method is responsible for decrypting the token and taking out the encrypted payload
+     * @param token
+     * @return
+     */
+
+    public String decryptJwtToken(String token){
+        String payload = Jwts.parser().setSigningKey(secretPassword)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+        return payload;
+    }
+
 }
