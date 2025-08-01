@@ -1,4 +1,4 @@
-package com.fbs.central_api.configuration;
+package com.fbs.central_api.configurations;
 
 import com.fbs.central_api.filter.AuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,7 @@ public class AuthConfiguration {
                         auth -> auth.requestMatchers(
                                         "/api/v1/central/user/login",
                                         "/api/v1/central/airline/register"
+
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )

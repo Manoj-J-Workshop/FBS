@@ -91,27 +91,27 @@ public class UserService {
         // I want to validate email & password is it belonging to correct user or not
         // Auth Utility is going to call UserService to validate email and password belongs to correct user or not
 
-//        try{
-//            isValidCredentials(email, password);
-//            return true;
-//        } catch (Exception e) {
-//            return false;
-//        }
-        //Using GetUserByEmail and validate the password
         try{
-            AppUser user = this.getUserByMail(email);
-            if (user == null) {
-                log.warn("Token "+ token +" is not valid");
-                return false;
-            }
-            if(user.getPassword().equals(password)){
-                return true;
-            }
+            isValidCredentials(email, password);
+            return true;
         } catch (Exception e) {
-            log.warn("Invalid Token: "+ token);
-            log.error("Error Occurred: "+ e.getMessage());
-
+            return false;
         }
-        return false;
+        //Using GetUserByEmail and validate the password
+//        try{
+//            AppUser user = this.getUserByMail(email);
+//            if (user == null) {
+//                log.warn("Token "+ token +" is not valid");
+//                return false;
+//            }
+//            if(user.getPassword().equals(password)){
+//                return true;
+//            }
+//        } catch (Exception e) {
+//            log.warn("Invalid Token: "+ token);
+//            log.error("Error Occurred: "+ e.getMessage());
+//
+//        }
+//        return false;
     }
 }

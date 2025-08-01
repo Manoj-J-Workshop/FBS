@@ -68,7 +68,7 @@ public class DBApiConnector {
     this function will make request to db-api GetAllUsersByUserType endpoint such that we will get all the system admin
      */
     public List<AppUser> callGetAllUsersByUserType(String userType){
-        String url = dbApiBaseUrl+"/user/get/"+userType;
+        String url = dbApiBaseUrl+"/user/get/byType/"+userType;
         RequestEntity<Void> request = RequestEntity.get(URI.create(url)).build();
         ResponseEntity<AllUsersDto> response = restTemplate.exchange(url, HttpMethod.GET,request, AllUsersDto.class);
         return response.getBody().getAppUsers();
@@ -101,7 +101,7 @@ public class DBApiConnector {
 
     public AppUser callGetUserByEmailEndpoint(String Email){
         log.info("Inside callGetUserByEmailEndpoint method with Email: "+Email);
-        String url = dbApiBaseUrl+"/user/get/"+ Email;
+        String url = dbApiBaseUrl+"/get/byEmail/"+ Email;
         RequestEntity request = RequestEntity.get(url).build();
         ResponseEntity<AppUser> response = restTemplate.exchange(url,HttpMethod.GET, request,AppUser.class);
         return response.getBody();
